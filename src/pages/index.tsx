@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { FiGithub, FiArrowRight } from "react-icons/fi";
+import { signIn } from "next-auth/client";
 
 import {
   Background,
@@ -23,7 +24,7 @@ export default function Home() {
         <Navbar>
           <Title>Next Quiz</Title>
 
-          <a href="github.com/joaovamattos/next-quiz" target="_blank">
+          <a href="https://github.com/joaovamattos/next-quiz" target="_blank">
             <RepoLink>
               <FiGithub size={24} color="#556BF4" />
             </RepoLink>
@@ -31,9 +32,9 @@ export default function Home() {
         </Navbar>
         <Wrapper>
           <Description>
-            Um quiz simples desenvolvido utilizando Next.js
+            Uma simples plataforma de quiz desenvolvida utilizando Next.js
           </Description>
-          <Button>
+          <Button onClick={() => signIn()}>
             Comece agora <FiArrowRight size={24} color="#556BF4" />
           </Button>
         </Wrapper>

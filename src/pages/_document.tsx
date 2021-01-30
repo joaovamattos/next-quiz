@@ -30,9 +30,10 @@ export default class MyDocument extends Document {
   }
   render(): JSX.Element {
     return (
-      <Html lang="pt">
+      <Html lang="pt-br">
         <Head>
           <meta charSet="utf-8" />
+          <meta name="theme-color" content="#556BF4" />
           <link
             href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700"
             rel="stylesheet"

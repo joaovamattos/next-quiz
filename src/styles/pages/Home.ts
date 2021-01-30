@@ -17,6 +17,12 @@ export const Background = styled.div`
     position: fixed;
     top: 0;
     left: 0;
+
+    @media (max-width: 48rem) {
+      line-height: 7rem;
+      font-size: 8.5rem;
+      text-align: start;
+    }
   }
 `;
 
@@ -30,17 +36,18 @@ export const Container = styled.div`
 `;
 
 export const Navbar = styled.div`
-  width: 100%;
+  max-width: 64rem;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 5rem;
-  padding-top: 4rem;
+  padding: 0 2rem;
+  padding-top: 3.6rem;
 `;
 
 export const Title = styled.h1`
   color: ${(props) => props.theme.colors.background};
-  font-size: 3rem;
+  font-size: 2.4rem;
   white-space: nowrap;
 
   @media (max-width: 48rem) {
@@ -78,12 +85,12 @@ export const Wrapper = styled.div`
 
 export const Description = styled.h2`
   color: ${(props) => props.theme.colors.background};
-  font-size: 4.2rem;
+  font-size: 4rem;
   text-align: center;
   max-width: 48rem;
 
   @media (max-width: 48rem) {
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
 `;
 
@@ -91,7 +98,7 @@ export const Button = styled.button`
   margin-top: 3rem;
   padding: 0 2.5rem;
   width: 16rem;
-  height: 4rem;
+  min-height: 3.6rem;
   display: flex;
   align-items: center;
 
