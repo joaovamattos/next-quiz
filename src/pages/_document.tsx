@@ -34,6 +34,10 @@ export default class MyDocument extends Document {
         <Head>
           <meta charSet="utf-8" />
           <meta name="theme-color" content="#556BF4" />
+          <meta
+            name="description"
+            content="Uma simples plataforma de quiz desenvolvida utilizando Next.js"
+          />
           <link
             href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700"
             rel="stylesheet"

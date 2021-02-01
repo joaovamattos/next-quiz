@@ -1,5 +1,9 @@
 import Head from "next/head";
+import { useRouter } from "next/router";
 
+import { useSession } from "next-auth/client";
+
+import Loading from "../components/Loading";
 import Navbar from "../components/Navbar";
 
 import { Input, Label } from "../styles/global";
@@ -15,6 +19,17 @@ import {
 } from "../styles/pages/Dashboard";
 
 export default function Dashboard() {
+  const [session, loading] = useSession();
+  const router = useRouter();
+
+  if (!session && typeof window !== "undefined") {
+    router.push("/");
+  }
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <Container>
       <Head>
@@ -25,7 +40,7 @@ export default function Dashboard() {
         <Navbar />
         <HeaderWrapper>
           <Text>Estes são os quizes disponíveis.</Text>
-          <Button>Criar meu próprio quiz</Button>
+          <Button onClick={() => {}}>Criar meu próprio quiz</Button>
         </HeaderWrapper>
       </Header>
 

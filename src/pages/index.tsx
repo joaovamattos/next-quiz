@@ -1,6 +1,10 @@
 import Head from "next/head";
+import { useRouter } from "next/router";
+import { signIn, useSession } from "next-auth/client";
+
 import { FiGithub, FiArrowRight } from "react-icons/fi";
-import { signIn } from "next-auth/client";
+
+import Loading from "../components/Loading";
 
 import {
   Background,
@@ -14,6 +18,17 @@ import {
 } from "../styles/pages/Home";
 
 export default function Home() {
+  const [session, loading] = useSession();
+  const router = useRouter();
+
+  if (session) {
+    router.push("/dashboard");
+  }
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <>
       <Head>
