@@ -26,7 +26,7 @@ export const Input = styled.input`
   width: 100%;
   height: 3rem;
   padding: 0 1.5rem;
-  background: #e9ecff;
+  background: ${(props) => props.theme.colors.lightBlue};
   color: ${(props) => props.theme.colors.secondary};
   font-size: 1rem;
   border: 0;

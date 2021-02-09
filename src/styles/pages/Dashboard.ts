@@ -62,11 +62,14 @@ export const Text = styled.p`
   }
 `;
 
-export const Button = styled.button`
+export const Button = styled.a`
   border: 0;
   border-radius: 0.25rem;
   background: ${(props) => props.theme.colors.primary};
   color: ${(props) => props.theme.colors.background};
+  text-decoration: none;
+  text-align: center;
+  line-height: 2.4rem;
   font-weight: 700;
   white-space: nowrap;
   padding: 0 1rem;
@@ -90,4 +93,11 @@ export const Button = styled.button`
 
 export const SearchWrapper = styled.div`
   margin-bottom: 1.5rem;
+`;
+
+export const NoQuiz = styled.p`
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: ${(props) => props.theme.colors.background};
+  margin-top: 2rem;
 `;

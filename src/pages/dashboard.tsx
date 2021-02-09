@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 import { useSession } from "next-auth/client";
 
@@ -16,6 +17,7 @@ import {
   Text,
   Button,
   SearchWrapper,
+  NoQuiz,
 } from "../styles/pages/Dashboard";
 
 export default function Dashboard() {
@@ -40,17 +42,19 @@ export default function Dashboard() {
         <Navbar />
         <HeaderWrapper>
           <Text>Estes são os quizes disponíveis.</Text>
-          <Button onClick={() => {}}>Criar meu próprio quiz</Button>
+          <Link href="/newQuiz">
+            <Button>Criar meu próprio quiz</Button>
+          </Link>
         </HeaderWrapper>
       </Header>
 
       <Main>
         <SearchWrapper>
           <Label htmlFor="search">Assunto</Label>
-          <Input type="text" placeholder="Ex. React js" />
+          <Input id="search" type="text" placeholder="Ex. React js" />
         </SearchWrapper>
 
-        <h2>Ainda não temos nenhum quiz :c</h2>
+        <NoQuiz>Ainda não temos nenhum quiz :c</NoQuiz>
       </Main>
     </Container>
   );
