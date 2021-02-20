@@ -72,6 +72,10 @@ export const Form = styled.form`
   border-radius: 0.25rem;
   padding: 3.375rem 4rem;
   background: ${(props) => props.theme.colors.lightBlue};
+
+  @media (max-width: 36rem) {
+    padding: 2rem;
+  }
 `;
 
 export const FormHeader = styled.div`
@@ -79,15 +83,13 @@ export const FormHeader = styled.div`
   margin-bottom: 1.5rem;
 
   div {
-    margin-top: 4rem;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 `;
 
-export const FormTitle = styled.p`
+export const FormTitle = styled.legend`
   color: ${(props) => props.theme.colors.black};
   font-weight: 600;
   font-size: 1.5rem;
@@ -120,6 +122,7 @@ export const Input = styled.input`
 `;
 
 export const AddButton = styled.button`
+  margin-top: 2rem;
   border: 0;
   background: transparent;
   display: flex;
@@ -132,15 +135,6 @@ export const AddButton = styled.button`
   svg {
     margin-right: 0.5rem;
   }
-`;
-
-export const AnswerWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-export const Radio = styled.input`
-  margin-right: 1rem;
 `;
 
 export const Select = styled(SelectInput)`
@@ -178,6 +172,10 @@ export const Button = styled.button`
   :hover {
     background: ${(props) => props.theme.colors.secondary};
   }
+
+  @media (max-width: 30rem) {
+    width: 100%;
+  }
 `;
 
 export const CancelButton = styled.button`
@@ -196,10 +194,29 @@ export const CancelButton = styled.button`
   :hover {
     background: #9a9aa1;
   }
+
+  @media (max-width: 30rem) {
+    margin: 0;
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
 `;
 
 export const ButtonsWrapper = styled.div`
   margin-top: 4rem;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+
+  @media (max-width: 30rem) {
+    margin-top: 2rem;
+    flex-direction: column;
+  }
+`;
+
+export const Fieldset = styled.fieldset`
+  border: 0;
+  + fieldset {
+    margin-top: 3rem;
+  }
 `;
