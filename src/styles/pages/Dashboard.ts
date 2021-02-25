@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
 
   background: ${(props) => props.theme.colors.primary};
 `;
@@ -63,21 +63,22 @@ export const Text = styled.p`
 `;
 
 export const Button = styled.a`
-  border: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   border-radius: 0.25rem;
+  width: 16rem;
+  height: 2.8rem;
+  margin-left: 1rem;
+
   background: ${(props) => props.theme.colors.primary};
   color: ${(props) => props.theme.colors.background};
   text-decoration: none;
-  text-align: center;
-  line-height: 2.4rem;
-  font-weight: 700;
   white-space: nowrap;
-  padding: 0 1rem;
-  margin-left: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-
-  width: 16rem;
-  height: 2.4rem;
 
   transition: 0.3s ease-in;
 
@@ -100,4 +101,14 @@ export const NoQuiz = styled.p`
   font-weight: 700;
   color: ${(props) => props.theme.colors.background};
   margin-top: 2rem;
+`;
+
+export const QuizesWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+
+  @media (max-width: 36.5rem) {
+    grid-template-columns: 1fr;
+  }
 `;

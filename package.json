@@ -10,7 +10,8 @@
   "dependencies": {
     "@vercel/node": "^1.9.0",
     "axios": "^0.21.1",
-    "mongodb": "^3.6.3",
+    "luxon": "^1.26.0",
+    "mongodb": "^3.6.4",
     "next": "10.0.5",
     "next-auth": "^3.1.0",
     "polished": "^4.1.0",
@@ -22,6 +23,7 @@
     "styled-components": "^5.2.1"
   },
   "devDependencies": {
+    "@types/luxon": "^1.26.0",
     "@types/next-auth": "^3.1.23",
     "@types/node": "^14.14.22",
     "@types/react": "^17.0.0",

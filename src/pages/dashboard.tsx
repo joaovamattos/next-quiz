@@ -1,11 +1,13 @@
+import { GetStaticProps } from "next";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import Link from "next/link";
-
+import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
+import axios from "axios";
 
 import Loading from "../components/Loading";
 import Navbar from "../components/Navbar";
+import Card from "../components/Card";
 
 import { Input, Label } from "../styles/global";
 
@@ -18,9 +20,10 @@ import {
   Button,
   SearchWrapper,
   NoQuiz,
+  QuizesWrapper,
 } from "../styles/pages/Dashboard";
 
-export default function Dashboard() {
+export default function Dashboard({ quizes }) {
   const [session, loading] = useSession();
   const router = useRouter();
 
@@ -53,9 +56,31 @@ export default function Dashboard() {
           <Label htmlFor="search">Assunto</Label>
           <Input id="search" type="text" placeholder="Ex. React js" />
         </SearchWrapper>
-
-        <NoQuiz>Ainda não temos nenhum quiz :c</NoQuiz>
+        {quizes ? (
+          <QuizesWrapper>
+            {quizes.map((quiz) => (
+              <Card key={quiz._id} quiz={quiz} />
+            ))}
+          </QuizesWrapper>
+        ) : (
+          <NoQuiz>Ainda não temos nenhum quiz :c</NoQuiz>
+        )}
       </Main>
     </Container>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  // const response = await axios.get("/api/quizes");
+  // const quizes = response.data;
+
+  const response = await fetch("http://localhost:3000/api/quizes");
+  const data = await response.json();
+
+  return {
+    props: {
+      quizes: data,
+    },
+    revalidate: 20,
+  };
+};

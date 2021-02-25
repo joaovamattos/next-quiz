@@ -135,7 +135,7 @@ export default function Dashboard() {
       questions,
     };
 
-    await axios.post("/api/question/new", data);
+    await axios.post("/api/quizes/store", data);
   }
 
   function setQuestionValue(position: number, field: string, value: string) {
