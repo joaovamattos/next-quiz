@@ -53,14 +53,43 @@ export const StartButton = styled.button`
   display: flex;
   align-items: center;
   border: 0;
+  padding: 0.25rem;
   background: transparent;
   transition: 0.3s;
   cursor: pointer;
 
   :hover {
     transform: translateY(-0.25rem);
+    background: ${(props) => props.theme.colors.foreground};
   }
   svg {
     margin-left: 0.5rem;
+    padding: 0;
   }
+`;
+
+export const Button = styled.button`
+  display: flex;
+  align-items: center;
+  border: 0;
+  padding: 0.25rem;
+  background: transparent;
+  transition: 0.3s;
+  cursor: pointer;
+
+  :hover {
+    transform: translateY(-0.25rem);
+    background: ${(props) => props.theme.colors.foreground};
+  }
+`;
+
+export const CardFooter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+export const ActionsWrapper = styled.div`
+  display: flex;
 `;

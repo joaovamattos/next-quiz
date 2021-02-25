@@ -223,6 +223,7 @@ export default function Dashboard() {
             <InputGroup>
               <Label htmlFor="title">Título do seu quiz</Label>
               <Input
+                id="title"
                 type="text"
                 placeholder="Ex.: Você sabe tudo de Harry Potter?"
                 value={title}
@@ -230,8 +231,9 @@ export default function Dashboard() {
               />
             </InputGroup>
             <InputGroup>
-              <Label htmlFor="title">Nível de difículdade</Label>
+              <Label htmlFor="select">Nível de difículdade</Label>
               <Select
+                id="select"
                 options={options}
                 styles={customStyles}
                 placeholder="Selecione a dificuldade do seu quiz"

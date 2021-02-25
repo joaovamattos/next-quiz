@@ -1,9 +1,9 @@
+import { useEffect, useState } from "react";
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
-import axios from "axios";
 
 import Loading from "../components/Loading";
 import Navbar from "../components/Navbar";
@@ -21,11 +21,53 @@ import {
   SearchWrapper,
   NoQuiz,
   QuizesWrapper,
+  InputGroup,
+  Select,
 } from "../styles/pages/Dashboard";
 
-export default function Dashboard({ quizes }) {
+const customStyles = {
+  menuList: (provided) => ({
+    ...provided,
+    border: 0,
+    background: "#fff",
+    padding: 16,
+  }),
+};
+interface Difficulty {
+  label: String;
+  value: String;
+}
+
+export default function Dashboard({ staticQuizes }) {
+  const [quizes, setQuizes] = useState(staticQuizes);
+  const [title, setTitle] = useState("");
+  const [difficulty, setDifficulty] = useState<Difficulty>(null);
   const [session, loading] = useSession();
   const router = useRouter();
+
+  useEffect(() => {
+    let newQuizes = staticQuizes;
+
+    if (title !== "") {
+      newQuizes = newQuizes.filter((element) =>
+        element.title.toLowerCase().includes(title.toLowerCase())
+      );
+    }
+
+    if (difficulty !== null) {
+      newQuizes = newQuizes.filter(
+        (element) => element.difficulty === difficulty.value
+      );
+    }
+
+    setQuizes(newQuizes);
+  }, [title, difficulty]);
+
+  const options = [
+    { value: "beginner", label: "Iniciante" },
+    { value: "medium", label: "Médio" },
+    { value: "hard", label: "Difícil" },
+  ];
 
   if (!session && typeof window !== "undefined") {
     router.push("/");
@@ -53,17 +95,36 @@ export default function Dashboard({ quizes }) {
 
       <Main>
         <SearchWrapper>
-          <Label htmlFor="search">Assunto</Label>
-          <Input id="search" type="text" placeholder="Ex. React js" />
+          <InputGroup>
+            <Label htmlFor="search">Assunto</Label>
+            <Input
+              id="search"
+              type="text"
+              placeholder="Ex. React js"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </InputGroup>
+          <InputGroup>
+            <Label htmlFor="select">Nível de difículdade</Label>
+            <Select
+              id="select"
+              options={options}
+              styles={customStyles}
+              placeholder="Ex.: Iniciante"
+              onChange={(option) => setDifficulty(option)}
+              isClearable
+            />
+          </InputGroup>
         </SearchWrapper>
-        {quizes ? (
+        {quizes.length > 0 ? (
           <QuizesWrapper>
             {quizes.map((quiz) => (
               <Card key={quiz._id} quiz={quiz} />
             ))}
           </QuizesWrapper>
         ) : (
-          <NoQuiz>Ainda não temos nenhum quiz :c</NoQuiz>
+          <NoQuiz>Nenhum quiz encontrado! :c</NoQuiz>
         )}
       </Main>
     </Container>
@@ -71,15 +132,12 @@ export default function Dashboard({ quizes }) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  // const response = await axios.get("/api/quizes");
-  // const quizes = response.data;
-
   const response = await fetch("http://localhost:3000/api/quizes");
   const data = await response.json();
 
   return {
     props: {
-      quizes: data,
+      staticQuizes: data,
     },
     revalidate: 20,
   };

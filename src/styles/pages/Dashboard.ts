@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import SelectInput from "react-select";
 
 export const Container = styled.div`
   width: 100%;
@@ -17,6 +18,10 @@ export const Main = styled.div`
   left: 0;
   right: 0;
   top: -3.25rem;
+
+  @media (max-width: 30rem) {
+    top: -8.25rem;
+  }
 `;
 
 export const Header = styled.header`
@@ -25,7 +30,7 @@ export const Header = styled.header`
   background: ${(props) => props.theme.colors.background};
 
   @media (max-width: 30rem) {
-    height: 16rem;
+    height: 22em;
   }
 `;
 
@@ -71,6 +76,7 @@ export const Button = styled.a`
   width: 16rem;
   height: 2.8rem;
   margin-left: 1rem;
+  padding: 0 1rem;
 
   background: ${(props) => props.theme.colors.primary};
   color: ${(props) => props.theme.colors.background};
@@ -94,6 +100,13 @@ export const Button = styled.a`
 
 export const SearchWrapper = styled.div`
   margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @media (max-width: 30rem) {
+    flex-direction: column;
+  }
 `;
 
 export const NoQuiz = styled.p`
@@ -110,5 +123,42 @@ export const QuizesWrapper = styled.div`
 
   @media (max-width: 36.5rem) {
     grid-template-columns: 1fr;
+  }
+`;
+
+export const InputGroup = styled.div`
+  width: 50%;
+
+  :nth-child(2) {
+    margin-left: 1.5rem;
+  }
+
+  @media (max-width: 30rem) {
+    width: 100%;
+
+    :nth-child(2) {
+      margin: 0;
+      margin-top: 0.5rem;
+    }
+  }
+`;
+
+export const Select = styled(SelectInput)`
+  div.css-1wa3eu0-placeholder {
+    color: ${(props) => props.theme.colors.primary};
+    font-size: 0.875rem;
+  }
+
+  > div {
+    margin-top: 0.5rem;
+    width: 100%;
+    height: 3rem;
+    padding: 0 1rem;
+    background: ${(props) => props.theme.colors.lightBlue};
+    color: ${(props) => props.theme.colors.secondary};
+    font-size: 1rem;
+    border: 0;
+    border-radius: 0.25rem;
+    box-shadow: none;
   }
 `;
