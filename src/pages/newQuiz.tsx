@@ -2,10 +2,10 @@ import { FormEvent, useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import axios from "axios";
-
 import { useSession } from "next-auth/client";
 import { FiPlus } from "react-icons/fi";
 
+import { useToast } from "../contexts/toast";
 import Loading from "../components/Loading";
 import Navbar from "../components/Navbar";
 import Question from "../components/Question";
@@ -81,6 +81,7 @@ export default function Dashboard() {
   ]);
 
   const [session, loading] = useSession();
+  const { showToast, setShowConfirmToast } = useToast();
   const router = useRouter();
 
   const options = [
@@ -135,7 +136,13 @@ export default function Dashboard() {
       questions,
     };
 
-    await axios.post("/api/quizes/store", data);
+    try {
+      await axios.post("/api/quizes/store", data);
+      setShowConfirmToast(true);
+      router.push("/dashboard");
+    } catch (error) {
+      showToast("error", "Erro ao salvar quiz, por favor tente novamente!");
+    }
   }
 
   function setQuestionValue(position: number, field: string, value: string) {
@@ -262,7 +269,9 @@ export default function Dashboard() {
           </AddButton>
 
           <ButtonsWrapper>
-            <CancelButton>Cancelar</CancelButton>
+            <CancelButton type="button" onClick={() => router.back()}>
+              Cancelar
+            </CancelButton>
             <Button>Salvar</Button>
           </ButtonsWrapper>
         </Form>

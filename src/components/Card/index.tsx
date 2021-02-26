@@ -22,6 +22,7 @@ interface Quiz {
 
 interface CardProps {
   quiz: Quiz;
+  handleDelete(id: string): void;
 }
 
 import React from "react";
@@ -42,7 +43,7 @@ import {
   ActionsWrapper,
 } from "./styles";
 
-const Card: React.FC<CardProps> = ({ quiz }) => {
+const Card: React.FC<CardProps> = ({ quiz, handleDelete }) => {
   const [session] = useSession();
 
   function formatDate(date: string) {
@@ -66,12 +67,12 @@ const Card: React.FC<CardProps> = ({ quiz }) => {
           <FiArrowRight size={18} color="#2F2E41" />
         </StartButton>
 
-        {session.user.image === quiz.user_image && (
+        {session.user?.email === quiz?.user_email && (
           <ActionsWrapper>
             <Button type="button">
               <FiEdit size={18} color="#2F2E41" />
             </Button>
-            <Button type="button">
+            <Button type="button" onClick={() => handleDelete(quiz._id)}>
               <FiTrash2 size={18} color="#2F2E41" />
             </Button>
           </ActionsWrapper>

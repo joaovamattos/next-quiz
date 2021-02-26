@@ -12,6 +12,11 @@ export const Container = styled.div`
   align-items: flex-start;
   justify-content: space-between;
   flex: 1;
+  transition: 0.2s ease-in;
+
+  :hover {
+    transform: scale(1.075);
+  }
 `;
 
 export const Avatar = styled.img`

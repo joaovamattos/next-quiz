@@ -4,6 +4,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
+import { useToast } from "../contexts/toast";
 
 import Loading from "../components/Loading";
 import Navbar from "../components/Navbar";
@@ -24,6 +25,7 @@ import {
   InputGroup,
   Select,
 } from "../styles/pages/Dashboard";
+import axios from "axios";
 
 const customStyles = {
   menuList: (provided) => ({
@@ -42,8 +44,16 @@ export default function Dashboard({ staticQuizes }) {
   const [quizes, setQuizes] = useState(staticQuizes);
   const [title, setTitle] = useState("");
   const [difficulty, setDifficulty] = useState<Difficulty>(null);
+  const { showConfirmToast, showToast, setShowConfirmToast } = useToast();
   const [session, loading] = useSession();
   const router = useRouter();
+
+  useEffect(() => {
+    if (showConfirmToast) {
+      showToast("success", "Salvo com sucesso!");
+      setShowConfirmToast(false);
+    }
+  }, [showConfirmToast]);
 
   useEffect(() => {
     let newQuizes = staticQuizes;
@@ -68,6 +78,15 @@ export default function Dashboard({ staticQuizes }) {
     { value: "medium", label: "Médio" },
     { value: "hard", label: "Difícil" },
   ];
+
+  async function handleDelete(id: string) {
+    await axios.delete(`/api/quizes/destroy/${id}`, {
+      params: {
+        _id: id,
+      },
+    });
+    showToast("success", "Quiz apagado com sucesso!");
+  }
 
   if (!session && typeof window !== "undefined") {
     router.push("/");
@@ -120,7 +139,7 @@ export default function Dashboard({ staticQuizes }) {
         {quizes.length > 0 ? (
           <QuizesWrapper>
             {quizes.map((quiz) => (
-              <Card key={quiz._id} quiz={quiz} />
+              <Card key={quiz._id} quiz={quiz} handleDelete={handleDelete} />
             ))}
           </QuizesWrapper>
         ) : (
