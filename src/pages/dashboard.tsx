@@ -80,10 +80,8 @@ export default function Dashboard({ staticQuizes }) {
   ];
 
   async function handleDelete(id: string) {
-    await axios.delete(`/api/quizes/destroy/${id}`, {
-      params: {
-        _id: id,
-      },
+    await fetch(`api/quizes/${id}`, {
+      method: "DELETE",
     });
     showToast("success", "Quiz apagado com sucesso!");
   }
