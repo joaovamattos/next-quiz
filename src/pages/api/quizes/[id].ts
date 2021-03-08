@@ -24,6 +24,8 @@ async function connectToDatabase(uri: string) {
 }
 
 export default async (req: NowRequest, res: NowResponse) => {
+  const { title, difficulty, questions } = req.body;
+
   const {
     query: { id },
     method,
@@ -45,18 +47,22 @@ export default async (req: NowRequest, res: NowResponse) => {
 
   switch (method) {
     case "GET":
-      const quiz = await collection.find({ _id: o_id }).toArray();
+      const quiz = await collection.findOne({ _id: o_id });
 
       if (!quiz) {
         return res.status(404);
       }
 
-      return res.status(200).json(quiz[0]);
+      return res.status(200).json(quiz);
 
     case "PUT":
-      await collection.findOneAndUpdate({ _id: o_id }, {});
-      return;
+      await collection.findOneAndUpdate(
+        { _id: o_id },
+        { $set: { title, difficulty, questions } },
+        { upsert: true }
+      );
 
+      return res.status(200).end();
     case "DELETE":
       try {
         const quiz = await collection.findOne({ _id: o_id });
@@ -69,7 +75,6 @@ export default async (req: NowRequest, res: NowResponse) => {
 
         return res.status(200).end();
       } catch (err) {
-        console.log(err);
         return res.status(500).json({
           error: "Erro ao deletar quiz, por favor tente novamente mais tarde.",
         });

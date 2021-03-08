@@ -26,6 +26,7 @@ interface CardProps {
 }
 
 import { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
 import { DateTime } from "luxon";
 import { FiArrowRight, FiEdit, FiTrash2, FiAlertCircle } from "react-icons/fi";
 import { useSession } from "next-auth/client";
@@ -89,9 +90,11 @@ const Card: React.FC<CardProps> = ({ quiz, handleDelete }) => {
 
         {session?.userId === quiz.user_id && (
           <ActionsWrapper>
-            <Button type="button">
-              <FiEdit size={18} color="#2F2E41" />
-            </Button>
+            <Link href={`/quiz/${quiz._id}`}>
+              <Button type="button">
+                <FiEdit size={18} color="#2F2E41" />
+              </Button>
+            </Link>
 
             <Button type="button" onClick={() => handleDel(quiz._id)}>
               {isWarning ? (

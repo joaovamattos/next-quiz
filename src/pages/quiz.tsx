@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import axios from "axios";
@@ -53,7 +53,15 @@ interface Difficulty {
   label: String;
   value: String;
 }
-export default function Dashboard() {
+
+export default function Quiz() {
+  const [headTitle, setHeadTitle] = useState("Novo quiz");
+  const [pageTitle, setPageTitle] = useState("Crie um super quiz.");
+  const [pageDescription, setPageDescription] = useState(
+    "Compartilhe seu super quiz com todos os seus amigos."
+  );
+  const [pageLoading, setPageLoading] = useState(false);
+
   const [title, setTitle] = useState("");
   const [difficulty, setDifficulty] = useState<Difficulty>(null);
   const [questions, setQuestions] = useState<Question[]>([
@@ -90,6 +98,69 @@ export default function Dashboard() {
     { value: "hard", label: "Difícil" },
   ];
 
+  useEffect(() => {
+    async function loadQuiz() {
+      if (router.query && router.query.id) {
+        setPageLoading(true);
+        const response = await fetch(
+          `http://localhost:3000/api/quizes/${router.query.id}`
+        );
+        const data = await response.json();
+
+        setHeadTitle("Editar quiz");
+        setPageTitle("Edite seu super quiz.");
+        setPageDescription("Deixe seu quiz do jeitinho que ele tem de ser.");
+        setTitle(data.title);
+        const option = options.filter(
+          (element) => element.value === data.difficulty
+        );
+        setDifficulty(option[0]);
+        setQuestions(data.questions);
+        setPageLoading(false);
+      }
+    }
+    loadQuiz();
+  }, [router.query]);
+
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+
+    if (difficulty === null) {
+      return alert("Escolha uma dificuldade para prosseguir!");
+    }
+
+    const serializedDifficulty = difficulty?.value;
+    const data = {
+      title,
+      difficulty: serializedDifficulty,
+      questions,
+    };
+
+    try {
+      if (router.query && router.query.id) {
+        await fetch(`/api/quizes/${router.query.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+      } else {
+        await fetch("/api/quizes/store", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+      }
+      setShowConfirmToast(true);
+      router.push("/dashboard");
+    } catch (error) {
+      showToast("error", "Erro ao salvar quiz, por favor tente novamente!");
+    }
+  }
+
   function addNewQuestion() {
     setQuestions([
       ...questions,
@@ -120,29 +191,6 @@ export default function Dashboard() {
   function removeQuestion(question: Question) {
     let newQuestions = [...questions];
     setQuestions(newQuestions.filter((element) => element !== question));
-  }
-
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault();
-
-    if (difficulty === null) {
-      return alert("Escolha uma dificuldade para prosseguir!");
-    }
-
-    const serializedDifficulty = difficulty?.value;
-    const data = {
-      title,
-      difficulty: serializedDifficulty,
-      questions,
-    };
-
-    try {
-      await axios.post("/api/quizes/store", data);
-      setShowConfirmToast(true);
-      router.push("/dashboard");
-    } catch (error) {
-      showToast("error", "Erro ao salvar quiz, por favor tente novamente!");
-    }
   }
 
   function setQuestionValue(position: number, field: string, value: string) {
@@ -200,23 +248,21 @@ export default function Dashboard() {
     router.push("/");
   }
 
-  if (loading) {
+  if (loading || pageLoading) {
     return <Loading />;
   }
 
   return (
     <Container>
       <Head>
-        <title>Next Quiz</title>
+        <title>{headTitle}</title>
       </Head>
 
       <Header>
         <Navbar />
         <HeaderWrapper>
-          <Title>Crie um super quiz.</Title>
-          <Description>
-            Compartilhe seu super quiz com todos os seus amigos.
-          </Description>
+          <Title>{pageTitle}</Title>
+          <Description>{pageDescription}</Description>
         </HeaderWrapper>
       </Header>
 
@@ -244,6 +290,7 @@ export default function Dashboard() {
                 options={options}
                 styles={customStyles}
                 placeholder="Selecione a dificuldade do seu quiz"
+                value={difficulty}
                 onChange={(option) => setDifficulty(option)}
               />
             </InputGroup>

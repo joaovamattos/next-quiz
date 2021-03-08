@@ -107,7 +107,7 @@ export default function Dashboard({ staticQuizes: sQuizes }) {
         <Navbar />
         <HeaderWrapper>
           <Text>Estes são os quizes disponíveis.</Text>
-          <Link href="/newQuiz">
+          <Link href="/quiz">
             <Button>Criar meu próprio quiz</Button>
           </Link>
         </HeaderWrapper>
