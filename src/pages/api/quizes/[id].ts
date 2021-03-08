@@ -1,6 +1,5 @@
 import { NowRequest, NowResponse } from "@vercel/node";
 import { getSession } from "next-auth/client";
-import { useRouter } from "next/router";
 import { MongoClient, Db, ObjectId } from "mongodb";
 import url from "url";
 
@@ -29,17 +28,21 @@ export default async (req: NowRequest, res: NowResponse) => {
     query: { id },
     method,
   } = req;
+
   const session = await getSession({ req });
+
+  if (!session) {
+    res.status(403);
+  }
 
   const db = await connectToDatabase(process.env.DATABASE_URL);
 
-  const user = await db
-    .collection("users")
-    .findOne({ email: session.user.email });
+  const user_id = new ObjectId(`${session?.userId}`);
+  const user = await db.collection("users").findOne({ _id: user_id });
 
   const collection = db.collection("quizes");
-
   const o_id = new ObjectId(`${id}`);
+
   switch (method) {
     case "GET":
       const quiz = await collection.find({ _id: o_id }).toArray();
@@ -49,21 +52,24 @@ export default async (req: NowRequest, res: NowResponse) => {
       }
 
       return res.status(200).json(quiz[0]);
+
     case "PUT":
       await collection.findOneAndUpdate({ _id: o_id }, {});
       return;
+
     case "DELETE":
       try {
-        const quiz = await collection.find({ _id: o_id }).toArray();
+        const quiz = await collection.findOne({ _id: o_id });
 
-        if (quiz?.[0].user_id !== user._id) {
-          return res.status(403);
+        if (quiz.user_id.toString() !== user._id.toString()) {
+          return res.status(403).end();
         }
 
-        await collection.deleteOne({ _id: o_id });
+        await collection.findOneAndDelete({ _id: o_id });
 
-        return res.status(200);
+        return res.status(200).end();
       } catch (err) {
+        console.log(err);
         return res.status(500).json({
           error: "Erro ao deletar quiz, por favor tente novamente mais tarde.",
         });

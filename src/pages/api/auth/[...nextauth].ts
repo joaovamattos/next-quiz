@@ -17,6 +17,12 @@ const options = {
 
   // A database is optional, but required to persist accounts in a database
   database: process.env.DATABASE_URL,
+  callbacks: {
+    session: async (session, user) => {
+      session.userId = user.id;
+      return Promise.resolve(session);
+    },
+  },
 };
 
 export default (req, res) => NextAuth(req, res, options);

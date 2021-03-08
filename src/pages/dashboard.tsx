@@ -40,7 +40,8 @@ interface Difficulty {
   value: String;
 }
 
-export default function Dashboard({ staticQuizes }) {
+export default function Dashboard({ staticQuizes: sQuizes }) {
+  let staticQuizes = sQuizes;
   const [quizes, setQuizes] = useState(staticQuizes);
   const [title, setTitle] = useState("");
   const [difficulty, setDifficulty] = useState<Difficulty>(null);
@@ -83,6 +84,8 @@ export default function Dashboard({ staticQuizes }) {
     await fetch(`api/quizes/${id}`, {
       method: "DELETE",
     });
+    staticQuizes = staticQuizes.filter((element) => element._id !== id);
+    setQuizes(staticQuizes);
     showToast("success", "Quiz apagado com sucesso!");
   }
 

@@ -25,9 +25,9 @@ interface CardProps {
   handleDelete(id: string): void;
 }
 
-import React from "react";
+import { useState, useEffect, useCallback } from "react";
 import { DateTime } from "luxon";
-import { FiArrowRight, FiEdit, FiTrash2 } from "react-icons/fi";
+import { FiArrowRight, FiEdit, FiTrash2, FiAlertCircle } from "react-icons/fi";
 import { useSession } from "next-auth/client";
 
 import {
@@ -45,11 +45,31 @@ import {
 
 const Card: React.FC<CardProps> = ({ quiz, handleDelete }) => {
   const [session] = useSession();
+  const [isWarning, setIsWarning] = useState(false);
 
   function formatDate(date: string) {
     const rezoned = DateTime.fromISO(date).setZone("America/Manaus");
     return rezoned.toLocaleString();
   }
+
+  useEffect(() => {
+    isWarning &&
+      setTimeout(() => {
+        setIsWarning(false);
+      }, 2000);
+  }, [isWarning]);
+
+  const handleDel = useCallback(
+    (id) => {
+      if (isWarning === false) {
+        setIsWarning(true);
+        return;
+      }
+
+      handleDelete(id);
+    },
+    [isWarning]
+  );
 
   return (
     <Container>
@@ -67,13 +87,18 @@ const Card: React.FC<CardProps> = ({ quiz, handleDelete }) => {
           <FiArrowRight size={18} color="#2F2E41" />
         </StartButton>
 
-        {session.user?.email === quiz?.user_email && (
+        {session?.userId === quiz.user_id && (
           <ActionsWrapper>
             <Button type="button">
               <FiEdit size={18} color="#2F2E41" />
             </Button>
-            <Button type="button" onClick={() => handleDelete(quiz._id)}>
-              <FiTrash2 size={18} color="#2F2E41" />
+
+            <Button type="button" onClick={() => handleDel(quiz._id)}>
+              {isWarning ? (
+                <FiAlertCircle size={18} color="#C23933" />
+              ) : (
+                <FiTrash2 size={18} color="#2F2E41" />
+              )}
             </Button>
           </ActionsWrapper>
         )}

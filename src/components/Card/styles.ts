@@ -15,7 +15,7 @@ export const Container = styled.div`
   transition: 0.2s ease-in;
 
   :hover {
-    transform: scale(1.075);
+    transform: scale(1.05);
   }
 `;
 
