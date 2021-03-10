@@ -35,7 +35,7 @@ export const Container = styled.div`
   left: 0;
 `;
 
-export const Navbar = styled.div`
+export const Navbar = styled.nav`
   max-width: 64rem;
   margin: 0 auto;
   display: flex;

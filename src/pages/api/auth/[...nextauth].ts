@@ -23,6 +23,9 @@ const options = {
       return Promise.resolve(session);
     },
   },
+  pages: {
+    signIn: "/signin",
+  },
 };
 
 export default (req, res) => NextAuth(req, res, options);

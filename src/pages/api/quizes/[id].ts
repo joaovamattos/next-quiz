@@ -1,27 +1,8 @@
 import { NowRequest, NowResponse } from "@vercel/node";
 import { getSession } from "next-auth/client";
-import { MongoClient, Db, ObjectId } from "mongodb";
-import url from "url";
+import connectToDatabase from "../../../utils/connectToDatabase";
 
-let cachedDb: Db = null;
-
-async function connectToDatabase(uri: string) {
-  if (cachedDb) {
-    return cachedDb;
-  }
-
-  const client = await MongoClient.connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-
-  const dbName = url.parse(uri).pathname.substr(1);
-  const db = client.db(dbName);
-
-  cachedDb = db;
-
-  return db;
-}
+import { ObjectId } from "mongodb";
 
 export default async (req: NowRequest, res: NowResponse) => {
   const { title, difficulty, questions } = req.body;

@@ -8,10 +8,11 @@
     "start": "next start"
   },
   "dependencies": {
-    "@types/mongodb": "^3.6.8",
+    "@types/mongodb": "^3.6.9",
     "@vercel/node": "^1.9.0",
     "axios": "^0.21.1",
     "luxon": "^1.26.0",
+    "mongodb": "^3.6.4",
     "next": "10.0.5",
     "next-auth": "^3.1.0",
     "polished": "^4.1.0",
