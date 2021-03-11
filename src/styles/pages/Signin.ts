@@ -9,6 +9,15 @@ export const Container = styled.div`
   justify-content: space-between;
 `;
 
+export const Navbar = styled.nav`
+  width: 100%;
+  margin-bottom: auto;
+
+  a {
+    text-decoration: none;
+  }
+`;
+
 export const LoginWrapper = styled.div`
   background: ${(props) => props.theme.colors.primary};
 
@@ -19,31 +28,15 @@ export const LoginWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 58rem) {
+    max-width: 100%;
+  }
 `;
 
 export const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: auto;
-`;
-
-export const Wrapper = styled.div`
-  background: ${(props) => props.theme.colors.lightBlue};
-  max-width: 60%;
-  width: 100%;
-  height: 100vh;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const Navbar = styled.nav`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   margin-bottom: auto;
 `;
 
@@ -78,6 +71,7 @@ export const Button = styled.button`
   min-height: 3rem;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   font-size: 1rem;
   white-space: nowrap;
@@ -102,9 +96,28 @@ export const Button = styled.button`
     margin-left: 0.5rem;
   }
 `;
+3;
+
+export const WelcomeWrapper = styled.div`
+  background: ${(props) => props.theme.colors.lightBlue};
+  max-width: 60%;
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 58rem) {
+    display: none;
+  }
+`;
 
 export const Image = styled.img`
-  width: 32rem;
+  max-width: 32rem;
+  width: 100%;
+  padding: 0 1.5rem;
 `;
 
 export const WelcomeTitle = styled.p`

@@ -1,8 +1,12 @@
 import { providers, signIn } from "next-auth/client";
+import { FiGithub } from "react-icons/fi";
+import { AiOutlineGoogle } from "react-icons/ai";
+
+import Link from "next/link";
 import {
   Container,
   LoginWrapper,
-  Wrapper,
+  WelcomeWrapper,
   Button,
   Subtitle,
   Title,
@@ -24,7 +28,11 @@ export default function SignIn({ providers }) {
     <Container>
       <LoginWrapper>
         <Navbar>
-          <Title>Next Quiz</Title>
+          <Link href="/">
+            <a>
+              <Title>Next Quiz</Title>
+            </a>
+          </Link>
         </Navbar>
         <InputWrapper>
           <div>
@@ -37,16 +45,21 @@ export default function SignIn({ providers }) {
                 <p>
                   Entrar com <span>{provider?.name}</span>
                 </p>
+                {provider?.name === "Google" ? (
+                  <AiOutlineGoogle size={20} color="#2F2E41" />
+                ) : (
+                  <FiGithub size={18} color="#2F2E41" />
+                )}
               </Button>
             </div>
           ))}
         </InputWrapper>
       </LoginWrapper>
-      <Wrapper>
+      <WelcomeWrapper>
         <WelcomeTitle>Bom te ver de novo.</WelcomeTitle>
         <WelcomeSubtitle>Bem vindo!</WelcomeSubtitle>
         <Image src="/login.svg" alt="Homem passando por uma porta" />
-      </Wrapper>
+      </WelcomeWrapper>
     </Container>
   );
 }
