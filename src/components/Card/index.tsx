@@ -83,10 +83,12 @@ const Card: React.FC<CardProps> = ({ quiz, handleDelete }) => {
       </CardHeader>
       <Title>{quiz.title}</Title>
       <CardFooter>
-        <StartButton type="button">
-          Iniciar agora
-          <FiArrowRight size={18} color="#2F2E41" />
-        </StartButton>
+        <Link href={`/play/${quiz._id}`}>
+          <StartButton type="button">
+            Iniciar agora
+            <FiArrowRight size={18} color="#2F2E41" />
+          </StartButton>
+        </Link>
 
         {session?.userId === quiz.user_id && (
           <ActionsWrapper>

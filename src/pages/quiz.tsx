@@ -1,7 +1,6 @@
 import { FormEvent, useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import axios from "axios";
 import { useSession } from "next-auth/client";
 import { FiPlus } from "react-icons/fi";
 

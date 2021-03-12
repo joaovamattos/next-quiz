@@ -25,7 +25,6 @@ import {
   InputGroup,
   Select,
 } from "../styles/pages/Dashboard";
-import axios from "axios";
 
 const customStyles = {
   menuList: (provided) => ({
@@ -90,7 +89,7 @@ export default function Dashboard({ staticQuizes: sQuizes }) {
   }
 
   if (!session && typeof window !== "undefined") {
-    router.push("/");
+    router.push("/signin");
   }
 
   if (loading) {

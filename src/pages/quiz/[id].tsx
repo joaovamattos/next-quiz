@@ -1,7 +1,7 @@
 import EditQuiz from "../quiz";
 
-const edit: React.FC = () => {
+const Edit: React.FC = () => {
   return <EditQuiz />;
 };
 
-export default edit;
+export default Edit;

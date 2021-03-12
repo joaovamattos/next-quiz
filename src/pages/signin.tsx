@@ -1,4 +1,6 @@
 import { providers, signIn } from "next-auth/client";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/client";
 import { FiGithub } from "react-icons/fi";
 import { AiOutlineGoogle } from "react-icons/ai";
 
@@ -22,8 +24,14 @@ interface Provider {
   id: string;
   name: string;
 }
-
 export default function SignIn({ providers }) {
+  const [session] = useSession();
+  const router = useRouter();
+
+  if (session && typeof window !== "undefined") {
+    router.push("/dashboard");
+  }
+
   return (
     <Container>
       <LoginWrapper>
