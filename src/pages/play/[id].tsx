@@ -21,11 +21,11 @@ export default function Play({ staticQuiz }) {
         <ProgressWrapper>
           <ProgressText>Pergunta 1 de 5</ProgressText>
           <Progressbar>
-            <Progress percent={25} />
+            <Progress percent={20} />
           </Progressbar>
         </ProgressWrapper>
 
-        <Question>{staticQuiz?.question}</Question>
+        <Question>As tags HTML são envolvidas por quais caracteres?</Question>
 
         <AnswersWrapper>
           <Button>{"<>"}</Button>
@@ -54,11 +54,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { id } = context.params;
+  const response = await fetch(
+    `http://localhost:3000/api/quizes/${id.toString()}`
+  );
 
-  const response = await fetch(`http://localhost:3000/api/quizes/${id}`);
-  const data = await response.json();
-  console.log("------------------------------------------------------");
-  console.log(data);
+  let data = {};
+  if (response.statusText) {
+    data = { error: "not found" };
+  } else {
+    data = await response.json();
+  }
 
   return {
     props: {

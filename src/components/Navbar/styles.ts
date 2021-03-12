@@ -6,11 +6,12 @@ export const Container = styled.div`
 `;
 
 export const Wrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   height: 4rem;
   padding: 0 2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export const Title = styled.h1`

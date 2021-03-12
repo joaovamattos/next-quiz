@@ -18,7 +18,6 @@ export default async (req: NowRequest, res: NowResponse) => {
       user_id: user._id,
       user_name: session.user.name,
       user_image: session.user.image,
-      user_email: session.user.email,
       title,
       difficulty,
       questions,
