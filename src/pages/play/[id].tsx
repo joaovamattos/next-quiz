@@ -149,15 +149,6 @@ export default function Play() {
 
 //   console.log(paths);
 
-//   return {
-//     paths,
-//     fallback: true,
-//   };
-// };
-
-// export const getStaticProps: GetStaticProps = async (context) => {
-//   const { id } = context.params;
-
 //   const response = await fetch(`http://localhost:3000/api/quizes/${id}`);
 //   const data = await response.json();
 //   return {

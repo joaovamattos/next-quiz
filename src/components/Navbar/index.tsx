@@ -23,6 +23,10 @@ const Navbar: React.FC = () => {
     setVisible(!visible);
   }, [visible]);
 
+  const closeMenu = useCallback(() => {
+    setVisible(false);
+  }, [visible]);
+
   return (
     <Container>
       <Wrapper>
@@ -31,22 +35,24 @@ const Navbar: React.FC = () => {
             <a>Next Quiz</a>
           </Link>
         </Title>
-        <UserWrapper onClick={toggleMenu}>
-          <Username>{session?.user.name.split(" ")[0]}</Username>
-          <AvatarWrapper>
-            <Avatar src={session?.user.image} alt={session?.user.name} />
-          </AvatarWrapper>
-        </UserWrapper>
+        <div>
+          <OutsideClickHandler onOutsideClick={closeMenu}>
+            <UserWrapper onClick={toggleMenu}>
+              <Username>{session?.user.name.split(" ")[0]}</Username>
+              <AvatarWrapper>
+                <Avatar src={session?.user.image} alt={session?.user.name} />
+              </AvatarWrapper>
+            </UserWrapper>
+            {visible && (
+              <Menu>
+                <Item>Meus quizes</Item>
+                <Item>Histórico</Item>
+                <Item onClick={() => signOut()}>Sair</Item>
+              </Menu>
+            )}
+          </OutsideClickHandler>
+        </div>
       </Wrapper>
-      {visible && (
-        <OutsideClickHandler onOutsideClick={toggleMenu}>
-          <Menu>
-            <Item>Meus quizes</Item>
-            <Item>Histórico</Item>
-            <Item onClick={() => signOut()}>Sair</Item>
-          </Menu>
-        </OutsideClickHandler>
-      )}
     </Container>
   );
 };

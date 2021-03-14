@@ -13,17 +13,20 @@ export default async (req: NowRequest, res: NowResponse) => {
   } = req;
 
   const session = await getSession({ req });
+  console.log(session);
 
   if (!session) {
     res.status(403);
+    return res.json({ error: "Forbidden" });
   }
 
   const db = await connectToDatabase(process.env.DATABASE_URL);
 
-  const user_id = new ObjectId(`${session?.userId}`);
+  const user_id = new ObjectId(`${session.userId}`);
   const user = await db.collection("users").findOne({ _id: user_id });
 
   const collection = db.collection("quizes");
+
   const o_id = new ObjectId(`${id}`);
 
   switch (method) {
@@ -31,11 +34,10 @@ export default async (req: NowRequest, res: NowResponse) => {
       const quiz = await collection.findOne({ _id: o_id });
 
       if (!quiz) {
-        return res.status(404);
+        return res.status(404).json({ error: "Quiz not found" });
       }
 
       return res.status(200).json(quiz);
-
     case "PUT":
       await collection.findOneAndUpdate(
         { _id: o_id },
@@ -43,22 +45,25 @@ export default async (req: NowRequest, res: NowResponse) => {
         { upsert: true }
       );
 
-      return res.status(200).end();
+      return res.status(200);
     case "DELETE":
       try {
         const quiz = await collection.findOne({ _id: o_id });
 
         if (quiz.user_id.toString() !== user._id.toString()) {
-          return res.status(403).end();
+          return res.status(403);
         }
 
         await collection.findOneAndDelete({ _id: o_id });
 
-        return res.status(200).end();
+        return res.status(200);
       } catch (err) {
         return res.status(500).json({
           error: "Erro ao deletar quiz, por favor tente novamente mais tarde.",
         });
       }
+    default:
+      res.end();
+      break;
   }
 };
