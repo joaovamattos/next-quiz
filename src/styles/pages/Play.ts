@@ -58,12 +58,17 @@ export const AnswersWrapper = styled.div`
   align-items: center;
 `;
 
-export const Button = styled.div`
+interface Button {
+  correct: boolean;
+  answered: boolean;
+}
+
+export const Button = styled.button<Button>`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${(props) => props.theme.colors.background};
-  color: ${(props) => props.theme.colors.primary};
+
+  font-size: 1rem;
   font-weight: 600;
   min-height: 3rem;
   margin-top: 0.5rem;
@@ -74,7 +79,23 @@ export const Button = styled.div`
   cursor: pointer;
   transition: 0.3s ease-in;
 
+  color: ${(props) =>
+    !props.answered
+      ? props.theme.colors.primary
+      : props.theme.colors.background};
+  background: ${(props) =>
+    !props.answered
+      ? props.theme.colors.background
+      : props.correct
+      ? props.theme.colors.success
+      : props.theme.colors.error};
+
   :hover {
-    background: ${(props) => props.theme.colors.foreground};
+    background: ${(props) =>
+      !props.answered
+        ? props.theme.colors.foreground
+        : props.correct
+        ? props.theme.colors.success
+        : props.theme.colors.error};
   }
 `;
