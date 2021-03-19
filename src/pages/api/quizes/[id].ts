@@ -13,8 +13,6 @@ export default async (req: NowRequest, res: NowResponse) => {
   } = req;
 
   const session = await getSession({ req });
-  console.log(session);
-
   if (!session) {
     res.status(403);
     return res.json({ error: "Forbidden" });
@@ -67,3 +65,21 @@ export default async (req: NowRequest, res: NowResponse) => {
       break;
   }
 };
+
+export async function handleGet(id: string) {
+  let data = {};
+
+  const db = await connectToDatabase(process.env.DATABASE_URL);
+  const collection = db.collection("quizes");
+  const o_id = new ObjectId(`${id}`);
+  const quiz = await collection.findOne({ _id: o_id });
+
+  if (!quiz) {
+    data = { error: "Quiz not found" };
+  }
+
+  data = JSON.stringify(quiz);
+  data = JSON.parse(`${data}`);
+
+  return data;
+}
