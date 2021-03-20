@@ -127,7 +127,6 @@ export default function Dashboard({ staticQuizes: sQuizes }) {
           <InputGroup>
             <Label htmlFor="select">Nível de difículdade</Label>
             <Select
-              id="select"
               options={options}
               styles={customStyles}
               placeholder="Ex.: Iniciante"

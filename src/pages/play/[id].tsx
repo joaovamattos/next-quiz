@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 
+import { handleGet } from "../api/quizes/[id]";
 import Navbar from "../../components/Navbar";
 import Loading from "../../components/Loading";
 import {
@@ -17,7 +18,6 @@ import {
   AnswersWrapper,
   Button,
 } from "../../styles/pages/Play";
-import { handleGet } from "../api/quizes/[id]";
 
 export default function Play({ staticQuiz }) {
   const [questionNumber, setQuestionNumber] = useState(0);

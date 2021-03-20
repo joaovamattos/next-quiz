@@ -73,3 +73,27 @@ export const Button = styled.button`
     background: ${(props) => props.theme.colors.foreground};
   }
 `;
+
+export const OutlineButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 1rem;
+  font-weight: 600;
+  min-height: 3rem;
+  margin-top: 0.5rem;
+  width: 18rem;
+  padding: 0.5rem 1rem;
+  border: 0.125rem solid ${(props) => props.theme.colors.background};
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: 0.3s ease-in;
+
+  color: ${(props) => props.theme.colors.background};
+  background: transparent;
+
+  :hover {
+    background: ${(props) => props.theme.colors.secondary};
+  }
+`;

@@ -28,6 +28,10 @@ export const Avatar = styled.img`
 
 export const CardHeader = styled.div`
   display: flex;
+
+  a {
+    text-decoration: none;
+  }
 `;
 
 export const Username = styled.div`

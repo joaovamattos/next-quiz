@@ -77,7 +77,11 @@ const Card: React.FC<CardProps> = ({ quiz, handleDelete }) => {
       <CardHeader>
         <Avatar src={quiz.user_image} alt={quiz.user_name} />
         <div>
-          <Username>{quiz.user_name}</Username>
+          <Link href={`/users/${quiz.user_id}`}>
+            <a>
+              <Username>{quiz.user_name}</Username>
+            </a>
+          </Link>
           <CreatedAt>{formatDate(quiz.createdAt)}</CreatedAt>
         </div>
       </CardHeader>

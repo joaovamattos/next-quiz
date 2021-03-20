@@ -114,8 +114,8 @@ export const Item = styled.div`
     margin-top: 0.7rem;
   }
 
-  :nth-child(3) {
-    margin-bottom: 0.4rem;
+  :nth-child(2) {
+    margin-bottom: 0.7rem;
   }
 
   font-size: 0.875rem;

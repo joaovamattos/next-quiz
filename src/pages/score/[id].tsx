@@ -1,11 +1,10 @@
-import connectToDatabase from "../../utils/connectToDatabase";
-import { ObjectId } from "mongodb";
 import { GetStaticProps, GetStaticPaths } from "next";
 import Link from "next/link";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 
+import { handleGet } from "../api/scores/[id]";
 import Navbar from "../../components/Navbar";
 import Loading from "../../components/Loading";
 
@@ -17,8 +16,8 @@ import {
   User,
   Pontuaition,
   Button,
+  OutlineButton,
 } from "../../styles/pages/Score";
-import { handleGet } from "../api/scores/[id]";
 
 export default function Score({ staticScore }) {
   const [session] = useSession();
@@ -50,13 +49,21 @@ export default function Score({ staticScore }) {
         {staticScore.score.map((score, index) => (
           <ScoreWrapper key={index}>
             <User>{score.user_name}</User>
-            <Pontuaition>{score.score}</Pontuaition>
+            <Pontuaition>
+              {score.score}/{staticScore.quizLength}
+            </Pontuaition>
           </ScoreWrapper>
         ))}
 
         <Link href={`/play/${router.query.id}`}>
           <a>
             <Button>Tentar novamente</Button>
+          </a>
+        </Link>
+
+        <Link href="/dashboard">
+          <a>
+            <OutlineButton>Voltar ao início</OutlineButton>
           </a>
         </Link>
       </Content>

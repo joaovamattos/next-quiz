@@ -110,6 +110,7 @@ export async function handleGet(id: string) {
   data = JSON.stringify({
     title: quiz.title,
     score: quiz.score,
+    quizLength: quiz.questions.length,
   });
   data = JSON.parse(`${data}`);
 

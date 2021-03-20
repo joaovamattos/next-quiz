@@ -45,8 +45,11 @@ const Navbar: React.FC = () => {
             </UserWrapper>
             {visible && (
               <Menu>
-                <Item>Meus quizes</Item>
-                <Item>Histórico</Item>
+                <Link href={`/users/${session.userId}`}>
+                  <a>
+                    <Item>Meus quizes</Item>
+                  </a>
+                </Link>
                 <Item onClick={() => signOut()}>Sair</Item>
               </Menu>
             )}
