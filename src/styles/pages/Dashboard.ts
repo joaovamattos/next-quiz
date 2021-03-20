@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import SelectInput from "react-select";
 
 export const Container = styled.div`
   width: 100%;
@@ -140,25 +139,5 @@ export const InputGroup = styled.div`
       margin: 0;
       margin-top: 0.5rem;
     }
-  }
-`;
-
-export const Select = styled(SelectInput)`
-  div.css-1wa3eu0-placeholder {
-    color: ${(props) => props.theme.colors.primary};
-    font-size: 0.875rem;
-  }
-
-  > div {
-    margin-top: 0.5rem;
-    width: 100%;
-    height: 3rem;
-    padding: 0 1rem;
-    background: ${(props) => props.theme.colors.lightBlue};
-    color: ${(props) => props.theme.colors.secondary};
-    font-size: 1rem;
-    border: 0;
-    border-radius: 0.25rem;
-    box-shadow: none;
   }
 `;

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 import { useToast } from "../contexts/toast";
+import SelectInput from "react-select";
 
 import Loading from "../components/Loading";
 import Navbar from "../components/Navbar";
@@ -23,7 +24,6 @@ import {
   NoQuiz,
   QuizesWrapper,
   InputGroup,
-  Select,
 } from "../styles/pages/Dashboard";
 
 const customStyles = {
@@ -33,6 +33,24 @@ const customStyles = {
     background: "#fff",
     padding: 16,
   }),
+  control: () => ({
+    marginTop: "0.5rem",
+    width: "100%",
+    display: "flex",
+    background: "#e9ecff",
+    height: "3rem",
+    padding: "0 1rem",
+    border: 0,
+    borderRadius: "0.25rem",
+    boxShadow: "none",
+    fontSize: "0.9rem",
+  }),
+  placeholder: (defaultStyles) => {
+    return {
+      ...defaultStyles,
+      color: "#4C60E3",
+    };
+  },
 };
 interface Difficulty {
   label: String;
@@ -126,7 +144,7 @@ export default function Dashboard({ staticQuizes: sQuizes }) {
           </InputGroup>
           <InputGroup>
             <Label htmlFor="select">Nível de difículdade</Label>
-            <Select
+            <SelectInput
               options={options}
               styles={customStyles}
               placeholder="Ex.: Iniciante"

@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 import { FiPlus } from "react-icons/fi";
+import SelectInput from "react-select";
 
 import { useToast } from "../contexts/toast";
 import Loading from "../components/Loading";
@@ -25,7 +26,6 @@ import {
   InputGroup,
   Input,
   AddButton,
-  Select,
   ButtonsWrapper,
   Button,
   CancelButton,
@@ -39,6 +39,24 @@ const customStyles = {
     background: "#fff",
     padding: 16,
   }),
+  control: () => ({
+    marginTop: "0.5rem",
+    width: "100%",
+    display: "flex",
+    background: "#fff",
+    height: "3rem",
+    padding: "0 1rem",
+    border: 0,
+    borderRadius: "0.25rem",
+    boxShadow: "none",
+    fontSize: "0.9rem",
+  }),
+  placeholder: (defaultStyles) => {
+    return {
+      ...defaultStyles,
+      color: "#4C60E3",
+    };
+  },
 };
 interface Answers {
   answer: string;
@@ -284,7 +302,7 @@ export default function Quiz() {
             </InputGroup>
             <InputGroup>
               <Label htmlFor="select">Nível de difículdade</Label>
-              <Select
+              <SelectInput
                 options={options}
                 styles={customStyles}
                 placeholder="Selecione a dificuldade do seu quiz"
