@@ -44,16 +44,13 @@ export default function Play({ staticQuiz }) {
       score,
     };
 
-    await fetch(
-      `https://next-quiz-6c5vuaarz-joaovamattos.vercel.app/api/scores/${router.query.id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }
-    );
+    await fetch(`api/scores/${router.query.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
 
     setLoading(true);
     router.push(`/score/${staticQuiz?._id}`);
@@ -157,9 +154,7 @@ export default function Play({ staticQuiz }) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const response = await fetch(
-    "https://next-quiz-6c5vuaarz-joaovamattos.vercel.app/api/quizes"
-  );
+  const response = await fetch("api/quizes");
   const data = await response.json();
 
   const paths = data.map((element) => {

@@ -110,9 +110,7 @@ export default function User({ data: sData }) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const response = await fetch(
-    "https://next-quiz-6c5vuaarz-joaovamattos.vercel.app/api/users"
-  );
+  const response = await fetch("api/users");
   const data = await response.json();
 
   const paths = data.map((element) => {

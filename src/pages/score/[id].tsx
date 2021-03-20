@@ -72,9 +72,7 @@ export default function Score({ staticScore }) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const response = await fetch(
-    "https://next-quiz-6c5vuaarz-joaovamattos.vercel.app/api/quizes"
-  );
+  const response = await fetch("api/quizes");
   const data = await response.json();
 
   const paths = data.map((element) => {
