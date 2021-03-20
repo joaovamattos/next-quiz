@@ -98,9 +98,12 @@ export default function Dashboard({ staticQuizes: sQuizes }) {
   ];
 
   async function handleDelete(id: string) {
-    await fetch(`api/quizes/${id}`, {
-      method: "DELETE",
-    });
+    await fetch(
+      `https://next-quiz-6c5vuaarz-joaovamattos.vercel.app/api/quizes/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
     staticQuizes = staticQuizes.filter((element) => element._id !== id);
     setQuizes(staticQuizes);
     showToast("success", "Quiz apagado com sucesso!");
@@ -168,7 +171,9 @@ export default function Dashboard({ staticQuizes: sQuizes }) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const response = await fetch("http://localhost:3000/api/quizes");
+  const response = await fetch(
+    "https://next-quiz-6c5vuaarz-joaovamattos.vercel.app/api/quizes"
+  );
   const data = await response.json();
 
   return {

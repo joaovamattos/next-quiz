@@ -120,7 +120,7 @@ export default function Quiz() {
       if (router.query && router.query.id) {
         setPageLoading(true);
         const response = await fetch(
-          `http://localhost:3000/api/quizes/${router.query.id}`
+          `https://next-quiz-6c5vuaarz-joaovamattos.vercel.app/api/quizes/${router.query.id}`
         );
         const data = await response.json();
 
@@ -155,21 +155,27 @@ export default function Quiz() {
 
     try {
       if (router.query && router.query.id) {
-        await fetch(`/api/quizes/${router.query.id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        });
+        await fetch(
+          `https://next-quiz-6c5vuaarz-joaovamattos.vercel.app/api/quizes/${router.query.id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
       } else {
-        await fetch("/api/quizes/store", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        });
+        await fetch(
+          "https://next-quiz-6c5vuaarz-joaovamattos.vercel.app/api/quizes/store",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
       }
       setShowConfirmToast(true);
       router.push("/dashboard");
