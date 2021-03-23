@@ -119,7 +119,9 @@ export default function Quiz() {
     async function loadQuiz() {
       if (router.query && router.query.id) {
         setPageLoading(true);
-        const response = await fetch(`api/quizes/${router.query.id}`);
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/quizes/${router.query.id}`
+        );
         const data = await response.json();
 
         setHeadTitle("Editar quiz");
@@ -149,19 +151,25 @@ export default function Quiz() {
       title,
       difficulty: serializedDifficulty,
       questions,
+      user_id: session.userId,
+      user_name: session.user.name,
+      user_image: session.user.image,
     };
 
     try {
       if (router.query && router.query.id) {
-        await fetch(`api/quizes/${router.query.id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        });
+        await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/quizes/${router.query.id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
       } else {
-        await fetch("api/quizes/store", {
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/quizes`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -4,7 +4,6 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 
-import { handleGet } from "../api/scores/[id]";
 import Navbar from "../../components/Navbar";
 import Loading from "../../components/Loading";
 
@@ -72,7 +71,7 @@ export default function Score({ staticScore }) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const response = await fetch("api/quizes");
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/quizes`);
   const data = await response.json();
 
   const paths = data.map((element) => {
@@ -87,7 +86,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { id } = context.params;
-  const data = await handleGet(id.toString());
+
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/scores/${id}`
+  );
+  const data = await response.json();
 
   return {
     props: {

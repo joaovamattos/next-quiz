@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 
-import { handleGet } from "../api/quizes/[id]";
 import Navbar from "../../components/Navbar";
 import Loading from "../../components/Loading";
 import {
@@ -40,17 +39,22 @@ export default function Play({ staticQuiz }) {
 
   const handleSubmit = useCallback(async () => {
     const data = {
+      user_id: staticQuiz.user_id,
+      user_name: staticQuiz.user_name,
       quiz_id: staticQuiz._id,
-      score,
+      scores: score,
     };
 
-    await fetch(`api/scores/${router.query.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/scores/${router.query.id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
 
     setLoading(true);
     router.push(`/score/${staticQuiz?._id}`);
@@ -154,7 +158,7 @@ export default function Play({ staticQuiz }) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const response = await fetch("api/quizes");
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/quizes`);
   const data = await response.json();
 
   const paths = data.map((element) => {
@@ -169,7 +173,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { id } = context.params;
-  const data = await handleGet(id.toString());
+
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/quizes/${id}`
+  );
+  const data = await response.json();
 
   return {
     props: {
