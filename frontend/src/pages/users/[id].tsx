@@ -7,7 +7,6 @@ import { DateTime } from "luxon";
 import { FiCalendar, FiCheckSquare } from "react-icons/fi";
 
 import { useToast } from "../../contexts/toast";
-import { getQuizesByUser } from "../api/users";
 import Navbar from "../../components/Navbar";
 import Loading from "../../components/Loading";
 import Card from "../../components/Card";
@@ -42,7 +41,8 @@ export default function User({ data: sData }) {
   }, [showConfirmToast]);
 
   function formatDate(date: string) {
-    const rezoned = DateTime.fromISO(date).setZone("America/Manaus");
+    const newDate = new Date(date).toISOString();
+    const rezoned = DateTime.fromISO(newDate).setZone("America/Manaus");
     return rezoned.toLocaleString({
       month: "long",
       year: "numeric",
@@ -50,11 +50,11 @@ export default function User({ data: sData }) {
   }
 
   async function handleDelete(id: string) {
-    await fetch(`api/quizes/${id}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/quizes/${id}`, {
       method: "DELETE",
     });
-    staticData = staticData.filter((element) => element.quizes._id !== id);
-    setData(staticData);
+    const newQuizes = data.quizes.filter((element) => element._id !== id);
+    setData({ ...data, quizes: newQuizes });
     showToast("success", "Quiz apagado com sucesso!");
   }
 
@@ -110,7 +110,7 @@ export default function User({ data: sData }) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const response = await fetch("api/users");
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`);
   const data = await response.json();
 
   const paths = data.map((element) => {
@@ -125,7 +125,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { id } = context.params;
-  const data = await getQuizesByUser(id.toString());
+
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/users/${id}`
+  );
+  const data = await response.json();
 
   return {
     props: {

@@ -98,7 +98,7 @@ export default function Dashboard({ staticQuizes: sQuizes }) {
   ];
 
   async function handleDelete(id: string) {
-    await fetch(`api/quizes/${id}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/quizes/${id}`, {
       method: "DELETE",
     });
     staticQuizes = staticQuizes.filter((element) => element._id !== id);
@@ -168,7 +168,7 @@ export default function Dashboard({ staticQuizes: sQuizes }) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const response = await fetch("api/quizes");
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/quizes`);
   const data = await response.json();
 
   return {
