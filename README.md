@@ -34,7 +34,7 @@ This app features all the latest tools and practices in web development!
 1. Clone this repo using git clone `https://github.com/joaovamattos/next-quiz.git`
 2. Move yourself to the appropriate directory: `cd next-quiz`
 3. Run `yarn` to install dependencies
-4. Create a `.env` file and add the MongoDB URL connection in DATABASE_URL field with the `Next Auth` fiels (see more about `Next Auth` fields in the [docs](https://next-auth.js.org/getting-started/introduction))   
+4. Create a `.env` file and add the MongoDB URL connection in DATABASE_URL field with the `Next Auth` fields (see more about `Next Auth` fields in the [docs](https://next-auth.js.org/getting-started/introduction))   
 5. Run `yarn dev` to start the server
 
 ## License
