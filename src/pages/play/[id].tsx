@@ -50,6 +50,8 @@ export default function Play() {
   }, [questionNumber]);
 
   const handleSubmit = useCallback(async () => {
+    console.log(quiz);
+
     const data = {
       user_id: quiz.user_id,
       user_name: quiz.user_name,
@@ -67,7 +69,7 @@ export default function Play() {
 
     setLoading(true);
     router.push(`/score/${quiz?._id}`);
-  }, [score]);
+  }, [score, quiz]);
 
   const handleNext = useCallback(
     (answer) => {
