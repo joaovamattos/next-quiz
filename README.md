@@ -1,34 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center">
+<br>
+  <img src="https://user-images.githubusercontent.com/23246259/114738984-7acc9000-9d16-11eb-8187-ebd76f2789ed.png" alt="next-quiz" width="120">
+<br>
+<br>
+next-crud
+</h1>
 
-## Getting Started
+<p align="center">A simple quiz plattform with Next.js</p>
 
-First, run the development server:
+<p align="center">
+  <a href="https://opensource.org/licenses/MIT">
+    <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License MIT">
+  </a>
+</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/23246259/114738613-20333400-9d16-11eb-98a8-97207e00cf86.gif" alt="demo" height="425">
+</div>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<hr />
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Features
+This app features all the latest tools and practices in web development!
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+- ⚛️ **React Js** — A JavaScript library for building user interfaces
+- ⚛️ **Next.js** — A React framework for developing single page aplications using javascript or typescript
+- 💹 **Node Js** — A web framework for Node Js
+- 💹 **MongoDB** — A document database, which means it stores data in JSON-like documents
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Learn More
+## Getting started
 
-To learn more about Next.js, take a look at the following resources:
+1. Clone this repo using git clone `https://github.com/joaovamattos/next-quiz.git`
+2. Move yourself to the appropriate directory: `cd next-quiz`
+3. Run `yarn` to install dependencies
+4. Create a `.env` file and add the MongoDB URL connection in DATABASE_URL field with the `Next Auth` fiels (see more about `Next Auth` fields in the [docs](https://next-auth.js.org/getting-started/introduction))   
+5. Run `yarn dev` to start the server
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is licensed under the MIT License - see the [LICENSE](https://opensource.org/licenses/MIT) page for details.
