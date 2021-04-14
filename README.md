@@ -3,7 +3,7 @@
   <img src="https://user-images.githubusercontent.com/23246259/114738984-7acc9000-9d16-11eb-8187-ebd76f2789ed.png" alt="next-quiz" width="120">
 <br>
 <br>
-next-crud
+Next Quiz
 </h1>
 
 <p align="center">A simple quiz plattform with Next.js</p>
